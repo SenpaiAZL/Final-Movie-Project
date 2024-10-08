@@ -8,6 +8,7 @@ import Favorites from './pages/Favorites/Favorites';
 import MovieFetcher from './components/Fetcher/MovieFetcher';
 import { useState } from 'react';
 import Category from './pages/Category/Category';
+import Detail from './pages/Detail/Detai';
 
 function App() {
   const [data, setData] = useState();
@@ -17,7 +18,8 @@ function App() {
         <MovieFetcher onFetch={setData} />
         <Navbar />
         <Routes>
-          <Route path="Homepage" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/Detail/:id" element={<Detail />} />
           <Route path="Favorites" element={<Favorites />} />
           <Route path="/category/:category" element={<Category />} />
         </Routes>

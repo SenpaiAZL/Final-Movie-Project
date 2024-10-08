@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = () => {
   return (
@@ -16,7 +17,9 @@ const Card = () => {
           plot, genre, and key highlights of the movie.
         </p>
         <div className="flex justify-between items-center">
-          <button className="btn btn-primary">Watch Now</button>
+          <Link to="/detail/83274">
+            <button className="btn btn-primary">Watch Now</button>
+          </Link>
           <p className="text-gray-500">Rating: 8.5</p>
         </div>
       </div>
