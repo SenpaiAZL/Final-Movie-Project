@@ -5,3 +5,11 @@ export const setTrend = (trend) => {
     payload: trend,
   };
 };
+
+export const SET_SEARCH = "SET_SEARCH";
+export const setSearch = (search) => {
+  return {
+    type: SET_SEARCH,
+    payload: search,
+  };
+};

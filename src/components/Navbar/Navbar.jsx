@@ -120,6 +120,8 @@ const Navbar = () => {
             />
           </svg>
         </button>
+        <input type="checkbox" id="my-drawer" className="drawer-toggle"></input>
+
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg

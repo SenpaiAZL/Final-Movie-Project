@@ -11,6 +11,7 @@ import Category from "./pages/Category/Category";
 import Detail from "./pages/Detail/Detail";
 import { Provider } from "react-redux";
 import store from "./Store/store";
+import Search from "./pages/Search";
 
 function App() {
   const [data, setData] = useState();
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/Detail/:id" element={<Detail />} />
             <Route path="Favorites" element={<Favorites />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/category/:category" element={<Category />} />
           </Routes>
         </Provider>
