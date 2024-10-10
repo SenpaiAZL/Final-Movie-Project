@@ -1,9 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/Card/Card";
+import TrendMovieFetcher from "../../components/Fetcher/TrendingMovieFetcher";
+import { useDispatch, useSelector } from "react-redux";
 
 const Homepage = () => {
+  const trend = useSelector((state) => state.trend.trend);
+
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Hero Section */}
@@ -20,18 +24,28 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/* Movie Trending Section */}
       <div className="py-10">
+        <TrendMovieFetcher />
         <h2 className="text-3xl text-center font-semibold mb-8">Trending</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mx-auto max-w-6xl px-4">
-          <Card />
-          <Card />
-          <Card />
+          {trend?.map((movie) => (
+            <div key={movie.id} className="">
+              <Card
+                imgUrl={movie.poster_path}
+                title={movie.title}
+                id={movie.id}
+                desc={movie.overview}
+                rating={movie.vote_average}
+              />
+            </div>
+          ))}
         </div>
       </div>
       {/* Movies What's popular section */}
       <div className="py-10">
-        <h2 className="text-3xl text-center font-semibold mb-8">What's popular</h2>
+        <h2 className="text-3xl text-center font-semibold mb-8">
+          What's popular
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mx-auto max-w-6xl px-4">
           <Card />
           <Card />
@@ -49,8 +63,8 @@ const Homepage = () => {
 
 export default Homepage;
 
-   {
-     /* <div className="bg-gray-800 p-4 rounded shadow hover:bg-gray-700">
+{
+  /* <div className="bg-gray-800 p-4 rounded shadow hover:bg-gray-700">
             <h3 className="text-xl"></h3>
           </div>
           <div className="bg-gray-800 p-4 rounded shadow hover:bg-gray-700">
@@ -62,4 +76,4 @@ export default Homepage;
           <div className="bg-gray-800 p-4 rounded shadow hover:bg-gray-700">
             <h3 className="text-xl"></h3>
           </div> */
-   }
+}
