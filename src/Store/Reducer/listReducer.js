@@ -1,6 +1,6 @@
 import { SET_LIST } from "../Action/movieAction";
 const DefaultValue = {
-  list: null,
+  list: {},
 };
 
 const listReducer = (state = DefaultValue, action) => {
