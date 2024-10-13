@@ -22,6 +22,7 @@ const DetailMovieFetcher = ({ id, type }) => {
       if (type == "movie") {
         response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`,
+          `https://api.themoviedb.org/3/movie/${id}/account_states`
           { headers: header }
         );
       } else if (type == "tv") {
