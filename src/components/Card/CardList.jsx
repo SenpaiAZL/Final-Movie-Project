@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ imgUrl, title, id, rating, desc, mediaType }) => {
+const CardList = ({ imgUrl, title, id, itemCount, desc }) => {
   return (
     <div className="card bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden">
       <img
@@ -14,14 +14,14 @@ const Card = ({ imgUrl, title, id, rating, desc, mediaType }) => {
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="text-gray-400 mb-4 line-clamp-2">{desc}</p>
         <div className="flex justify-between items-center">
-          <Link to={`/detail/${mediaType === "tv" ? "tv" : "movie"}/${id}`}>
-            <button className="btn btn-primary">Watch Now</button>
+          <Link to={`/lists/${id}`}>
+            <button className="btn btn-primary">More Info</button>
           </Link>
-          <p className="text-gray-500">Rating: {rating}</p>
+          <p className="text-gray-500">Count: {itemCount}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default CardList;

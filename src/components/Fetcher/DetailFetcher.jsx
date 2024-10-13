@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { setMovieDetail } from "../../Store/Action/detailAction";
 
-const DetailMovieFetcher = ({ id }) => {
+const DetailMovieFetcher = ({ id, type }) => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
   const apiRDT = import.meta.env.VITE_TMDB_TOKEN;
 
@@ -18,10 +18,18 @@ const DetailMovieFetcher = ({ id }) => {
         accept: "application/json",
         Authorization: `Bearer ${apiRDT}`,
       };
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`,
-        { headers: header }
-      );
+      let response;
+      if (type == "movie") {
+        response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`,
+          { headers: header }
+        );
+      } else if (type == "tv") {
+        response = await axios.get(
+          `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`,
+          { headers: header }
+        );
+      }
       const movieData = response.data;
       console.log(movieData);
       console.log(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
@@ -31,7 +39,7 @@ const DetailMovieFetcher = ({ id }) => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch, apiKey, apiRDT, id]);
+  }, [dispatch, apiKey, apiRDT, id, type]);
 
   useEffect(() => {
     fetchMovieDetails();

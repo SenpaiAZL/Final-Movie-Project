@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const MovieFetcher = ({ onFetch }) => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-  const apiRDT = import.meta.env.VITE_TMDB_TOKEN;
+  const apiToken = import.meta.env.VITE_TMDB_TOKEN;
   const accId = import.meta.env.VITE_TMDB_ACC_KEY;
 
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ const MovieFetcher = ({ onFetch }) => {
       try {
         let header = {
           accept: "application/json",
-          Authorization: "Bearer " + apiRDT + "",
+          Authorization: "Bearer " + apiToken + "",
         };
         const response = await axios.get(
           `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`,
@@ -33,7 +33,7 @@ const MovieFetcher = ({ onFetch }) => {
     };
 
     fetchMovieList();
-  }, [onFetch, accId, apiKey, apiRDT]);
+  }, [onFetch, accId, apiKey, apiToken]);
 
   return loading ? <div className="spinner"></div> : null;
 };

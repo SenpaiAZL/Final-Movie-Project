@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import DetailMovieFetcher from "../../components/Fetcher/DetailFetcher";
 
 const Detail = () => {
-  const { id } = useParams();
+  const { id, mediaType } = useParams();
   const detail = useSelector((state) => state.detail.detail);
   // Placeholder for movie details from API
   const tempMovieData = {
@@ -37,11 +37,11 @@ const Detail = () => {
 
   return (
     <div className="">
-      <DetailMovieFetcher id={id} />
+      <DetailMovieFetcher id={id} type={mediaType} />
       <div className="container mx-auto mt-10 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
         {/* Movie Title, Poster and Rating */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">{detail.title}</h1>
+          <h1 className="text-3xl font-bold">{detail.title || detail.name}</h1>
           <div className="flex items-center text-yellow-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"

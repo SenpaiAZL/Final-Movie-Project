@@ -12,6 +12,8 @@ import Detail from "./pages/Detail/Detail";
 import { Provider } from "react-redux";
 import store from "./Store/store";
 import Search from "./pages/Search";
+import Lists from "./pages/Lists/Lists";
+import ListItemsView from "./pages/Lists/ListsItemsView";
 
 function App() {
   const [data, setData] = useState();
@@ -23,10 +25,12 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/Detail/:id" element={<Detail />} />
+            <Route path="/detail/:mediaType/:id" element={<Detail />} />
             <Route path="Favorites" element={<Favorites />} />
             <Route path="/search" element={<Search />} />
             <Route path="/category/:category" element={<Category />} />
+            <Route path="/lists" element={<Lists />} />
+            <Route path="/lists/:id" element={<ListItemsView />} />
           </Routes>
         </Provider>
       </BrowserRouter>

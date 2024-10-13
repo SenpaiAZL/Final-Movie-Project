@@ -32,10 +32,11 @@ const Homepage = () => {
             <div key={movie.id} className="">
               <Card
                 imgUrl={movie.poster_path}
-                title={movie.title}
+                title={movie.media_type === "tv" ? movie.name : movie.title}
                 id={movie.id}
                 desc={movie.overview}
                 rating={movie.vote_average}
+                mediaType={movie.media_type}
               />
             </div>
           ))}
