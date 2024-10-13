@@ -18,7 +18,7 @@ const TrendMovieFetcher = () => {
         Authorization: "Bearer " + apiRDT + "",
       };
       const response = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`,
+        `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`,
         {
           headers: header,
         }

@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = ({ imgUrl, title, id, rating, desc }) => {
+const Card = ({ imgUrl, title, id, rating, desc, mediaType }) => {
   return (
     <div className="card bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden">
       <img
@@ -14,7 +14,7 @@ const Card = ({ imgUrl, title, id, rating, desc }) => {
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="text-gray-400 mb-4 line-clamp-2">{desc}</p>
         <div className="flex justify-between items-center">
-          <Link to={`/detail/${id}`}>
+          <Link to={`/detail/${mediaType === "tv" ? "tv" : "movie"}/${id}`}>
             <button className="btn btn-primary">Watch Now</button>
           </Link>
           <p className="text-gray-500">Rating: {rating}</p>

@@ -24,6 +24,7 @@ const ListItemsView = () => {
               id={movie.id}
               desc={movie.overview}
               rating={movie.vote_average}
+              mediaType={movie.media_type}
             />
           </div>
         ))}
