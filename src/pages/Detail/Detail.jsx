@@ -3,10 +3,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import DetailMovieFetcher from "../../components/Fetcher/DetailFetcher";
+import RatingSlider from "../../components/RatingSlider";
 
 const Detail = () => {
   const { id, mediaType } = useParams();
   const detail = useSelector((state) => state.detail.detail);
+  const itemState = useSelector((state) => state.itemState.itemState);
+  const ratedValue = itemState.rated?.value; // Use optional chaining to avoid errors
+
   // Placeholder for movie details from API
   const tempMovieData = {
     title: "Movie Title",
@@ -77,6 +81,8 @@ const Detail = () => {
           <h2 className="text-2xl font-bold mb-2">Movie Details</h2>
           <p className="text-gray-400">{detail.details}</p>
         </div>
+
+        <RatingSlider value={ratedValue !== false ? ratedValue : null} />
 
         {/* Additional Details */}
         <div className="grid grid-cols-2 gap-6 mb-6">
