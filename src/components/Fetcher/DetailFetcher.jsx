@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { setMovieDetail } from "../../Store/Action/detailAction";
+import { setState } from "../../Store/Action/movieAction";
 
 const DetailMovieFetcher = ({ id, type }) => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -18,11 +19,15 @@ const DetailMovieFetcher = ({ id, type }) => {
         accept: "application/json",
         Authorization: `Bearer ${apiRDT}`,
       };
-      let response;
+      let response, responseState;
       if (type == "movie") {
         response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`,
           `https://api.themoviedb.org/3/movie/${id}/account_states`
+          { headers: header }
+        );
+        responseState = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}/account_states?api_key=${apiKey}`,
           { headers: header }
         );
       } else if (type == "tv") {
@@ -30,11 +35,17 @@ const DetailMovieFetcher = ({ id, type }) => {
           `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`,
           { headers: header }
         );
+        responseState = await axios.get(
+          `https://api.themoviedb.org/3/tv/${id}/account_states?api_key=${apiKey}`,
+          { headers: header }
+        );
       }
       const movieData = response.data;
-      console.log(movieData);
+      const stateData = responseState.data;
+      console.log(movieData, stateData);
       console.log(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`);
       dispatch(setMovieDetail(movieData));
+      dispatch(setState(stateData));
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {

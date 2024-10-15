@@ -21,3 +21,11 @@ export const setList = (list) => {
     payload: list,
   };
 };
+
+export const SET_STATE = "SET_STATE";
+export const setState = (itemState) => {
+  return {
+    type: SET_STATE,
+    payload: itemState,
+  };
+};

@@ -1,15 +1,15 @@
 import React from "react";
 
-const RatingSlider = (value) => {
+const RatingSlider = ({ value }) => {
   return (
     <>
       <input
         type="range"
         min={0}
-        max="100"
-        value={value}
+        max="10"
+        value={value !== null ? value : 0} // Handle null case
         className="range"
-        step="10"
+        step="1"
       />
       <div className="flex w-full justify-between px-2 text-xs">
         <span>|</span>
