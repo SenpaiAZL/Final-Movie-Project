@@ -7,7 +7,7 @@ import { setState } from "../../Store/Action/movieAction";
 
 const DetailMovieFetcher = ({ id, type }) => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-  const apiRDT = import.meta.env.VITE_TMDB_TOKEN;
+  const apiRDT = import.meta.env.VITE_TMDB_API_TOKEN;
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);

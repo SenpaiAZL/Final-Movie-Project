@@ -42,7 +42,7 @@ const Detail = () => {
   return (
     <div className="">
       <DetailMovieFetcher id={id} type={mediaType} />
-      <div className="container mx-auto mt-10 p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+      <div className="container mx-auto p-10 bg-gray-900 text-white rounded-lg shadow-lg">
         {/* Movie Title, Poster and Rating */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">{detail.title || detail.name}</h1>

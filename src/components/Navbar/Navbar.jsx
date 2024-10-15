@@ -1,8 +1,25 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import FetcherSearch from "../Fetcher/SearchMovies"; // Import the search component
 
 const Navbar = () => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  const handleSearchChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
+
   return (
     <div className="navbar bg-gray-900 text-white">
       <div className="navbar-start">
@@ -33,7 +50,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="Favorites">
+              <Link to="/favorites">
                 <a>Favorites</a>
               </Link>
             </li>
@@ -41,7 +58,12 @@ const Navbar = () => {
               <Link to="/category/Action">
                 <a>Category</a>
               </Link>
-            </li>
+              </li>
+            <li>
+                <Link to="/Lists">
+                  <a>Lists</a>
+                </Link>
+              </li>
           </ul>
         </div>
 
@@ -104,7 +126,7 @@ const Navbar = () => {
 
       <div className="navbar-end">
         {/* Search and Notifications Icons */}
-        <button className="btn btn-ghost btn-circle">
+        <button className="btn btn-ghost btn-circle" onClick={toggleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -120,7 +142,42 @@ const Navbar = () => {
             />
           </svg>
         </button>
-        <input type="checkbox" id="my-drawer" className="drawer-toggle"></input>
+
+        {/* Search Popout */}
+        {isSearchOpen && (
+          <div
+            className="absolute bg-gray-800 text-white rounded-lg shadow-lg z-50 p-4 w-80"
+            style={{ top: "3.5rem", right: "0" }} // Adjusts the popout below the magnifying glass
+          >
+            <form>
+              <input
+                type="text"
+                value={query}
+                onChange={handleSearchChange}
+                placeholder="Search movies..."
+                className="input input-bordered w-full bg-gray-600 text-white" // Text color set to white
+              />
+            </form>
+
+            {/* Fetch search results */}
+            <FetcherSearch query={query} onResults={handleSearchResults} />
+
+            {/* Search Results Dropdown */}
+            {searchResults.length > 0 && (
+              <ul className="dropdown-content mt-2 bg-gray-700 rounded-lg p-2 max-h-60 overflow-auto shadow-lg">
+                {searchResults.map((movie) => (
+                  <li key={movie.id} className="p-2 hover:bg-gray-600">
+                    <Link to={`/detail/movie/${movie.id}`}>
+                      <p>
+                        {movie.title} <span>{movie.release_date}</span>
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
 
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
