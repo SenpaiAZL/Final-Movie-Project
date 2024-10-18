@@ -7,7 +7,7 @@ import { setState } from "../../Store/Action/movieAction";
 
 const DetailMovieFetcher = ({ id, type }) => {
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-  const apiRDT = import.meta.env.VITE_TMDB_TOKEN;
+  const apiRDT = import.meta.env.VITE_TMDB_API_TOKEN;
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -21,9 +21,11 @@ const DetailMovieFetcher = ({ id, type }) => {
       };
       let response, responseState;
       if (type == "movie") {
+        console.log(
+          `Accessed : https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey} and https://api.themoviedb.org/3/movie/${id}/account_states?api_key=${apiKey}`
+        );
         response = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`,
-          `https://api.themoviedb.org/3/movie/${id}/account_states`
           { headers: header }
         );
         responseState = await axios.get(
@@ -31,6 +33,9 @@ const DetailMovieFetcher = ({ id, type }) => {
           { headers: header }
         );
       } else if (type == "tv") {
+        console.log(
+          `Accessed : https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey} and https://api.themoviedb.org/3/tv/${id}/account_states?api_key=${apiKey}`
+        );
         response = await axios.get(
           `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`,
           { headers: header }

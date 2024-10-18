@@ -1,42 +1,110 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import DetailMovieFetcher from "../../components/Fetcher/DetailFetcher";
 import RatingSlider from "../../components/RatingSlider";
+import { useDispatch } from "react-redux";
+import { setState } from "../../Store/Action/movieAction";
+import axios from "axios";
 
 const Detail = () => {
   const { id, mediaType } = useParams();
   const detail = useSelector((state) => state.detail.detail);
   const itemState = useSelector((state) => state.itemState.itemState);
-  const ratedValue = itemState.rated?.value; // Use optional chaining to avoid errors
 
-  // Placeholder for movie details from API
-  const tempMovieData = {
-    title: "Movie Title",
-    rating: 8.5,
-    details:
-      "This is a placeholder for the movie description. This data will be fetched from the API.",
-    reviews: [
-      {
-        id: 1,
-        reviewer: "John Doe",
-        comment: "Great movie! Highly recommend.",
-      },
-      {
-        id: 2,
-        reviewer: "Jane Smith",
-        comment: "It was okay, some scenes were too long.",
-      },
-    ],
-    genre: "Action, Adventure", // Placeholder for movie genres
-    budget: "$200,000,000", // Placeholder for movie budget
-    popularity: 850.32, // Placeholder for popularity score
-    image: "https://via.placeholder.com/300", // Placeholder for movie poster
-    releaseDate: "2024-12-18", // Placeholder for release date
-    revenue: "$1,500,000,000", // Placeholder for movie revenue
-    status: "Released", // Placeholder for movie status
-    voteCount: 2563, // Placeholder for total vote count
+  const [isRating, setIsRating] = useState(false); //The visibility of value slider
+  const ratingValue = itemState?.rated?.value || null;
+  const [tempRatingValue, setTempRatingValue] = useState(ratingValue || 0);
+  const dispatch = useDispatch();
+
+  if (!itemState) {
+    // Optionally, render a loading state while waiting for itemState
+    return <div>Loading...</div>;
+  }
+  const openRateMenu = () => setIsRating(true);
+
+  const submitRating = async () => {
+    const newRatingValue = tempRatingValue;
+    setIsRating(true);
+
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+    const apiRDT = import.meta.env.VITE_TMDB_API_TOKEN;
+
+    const headers = {
+      accept: "application/json",
+      Authorization: `Bearer ${apiRDT}`,
+    };
+
+    const body = { value: newRatingValue };
+
+    try {
+      let response;
+      if (mediaType === "movie") {
+        response = await axios.post(
+          `https://api.themoviedb.org/3/movie/${itemState.id}/rating?api_key=${apiKey}`,
+          body,
+          { headers }
+        );
+      } else if (mediaType === "tv") {
+        response = await axios.post(
+          `https://api.themoviedb.org/3/tv/${itemState.id}/rating?api_key=${apiKey}`,
+          body,
+          { headers }
+        );
+      }
+      const updatedItemState = {
+        ...itemState,
+        rated: { value: newRatingValue },
+      };
+      dispatch(setState(updatedItemState));
+      console.log(response.data);
+    } catch (error) {
+      console.error(
+        "Error posting rating:",
+        error.response?.data || error.message
+      );
+    } finally {
+      setIsRating(false);
+    }
+  };
+
+  const deleteRating = async () => {
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+    const apiRDT = import.meta.env.VITE_TMDB_API_TOKEN;
+
+    const headers = {
+      accept: "application/json",
+      Authorization: `Bearer ${apiRDT}`,
+    };
+
+    try {
+      let response;
+      if (mediaType === "movie") {
+        response = await axios.delete(
+          `https://api.themoviedb.org/3/movie/${itemState.id}/rating?api_key=${apiKey}`,
+          { headers }
+        );
+      } else if (mediaType === "tv") {
+        response = await axios.delete(
+          `https://api.themoviedb.org/3/tv/${itemState.id}/rating?api_key=${apiKey}`,
+          { headers }
+        );
+      }
+      const updatedItemState = {
+        ...itemState,
+        rated: "false",
+      };
+      dispatch(setState(updatedItemState));
+      console.log(response.data);
+    } catch (error) {
+      console.error(
+        "Error deleting rating:",
+        error.response?.data || error.message
+      );
+    } finally {
+      setIsRating(false);
+    }
   };
 
   return (
@@ -82,7 +150,40 @@ const Detail = () => {
           <p className="text-gray-400">{detail.details}</p>
         </div>
 
-        <RatingSlider value={ratedValue !== false ? ratedValue : null} />
+        <div className="rating-cont">
+          {ratingValue === null ? (
+            <div>
+              <p>No rating given yet. Give one?</p>
+              <button className="btn btn-primary mx-3" onClick={openRateMenu}>
+                Give a rating
+              </button>
+            </div>
+          ) : (
+            <div>
+              <p className="text-left">Your rating: {ratingValue}</p>
+              <div className="flex gap-3">
+                <button className="btn btn-primary" onClick={openRateMenu}>
+                  Change rating
+                </button>
+                <button className="btn btn-warning" onClick={deleteRating}>
+                  Delete my rating
+                </button>
+              </div>
+            </div>
+          )}
+
+          {isRating && (
+            <div>
+              <RatingSlider
+                value={tempRatingValue}
+                onChange={(newValue) => setTempRatingValue(newValue)}
+              />
+              <button className="btn btn-success" onClick={submitRating}>
+                Submit Rating
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Additional Details */}
         <div className="grid grid-cols-2 gap-6 mb-6">
