@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-gray-900 text-white">
+    <div className="navbar bg-base-100 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -63,7 +63,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-gray-800 text-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-200  rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
               <Link to="/">
@@ -109,7 +109,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu dropdown-content bg-gray-800 text-white rounded-box z-[1] mt-3 p-6 shadow-lg w-[300px] h-auto"
+            className="menu dropdown-content bg-base-200  rounded-box z-[1] mt-3 p-6 shadow-lg w-[300px] h-auto"
             style={{
               position: "absolute",
               top: "100%", // pop-out below the button
@@ -119,31 +119,33 @@ const Navbar = () => {
           >
             <div className="grid grid-cols-2 gap-4 text-lg">
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Action</a>
+                <a className=" p-2 rounded-lg">Action</a>
               </li>
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Adventure</a>
+                <a className=" p-2 rounded-lg">Adventure</a>
               </li>
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Comedy</a>
+                <a className=" p-2 rounded-lg">Comedy</a>
               </li>
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Drama</a>
+                <a className=" p-2 rounded-lg">Drama</a>
               </li>
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Horror</a>
+                <a className=" p-2 rounded-lg">Horror</a>
               </li>
               <li>
-                <a className="hover:bg-gray-600 p-2 rounded-lg">Sci-Fi</a>
+                <a className=" p-2 rounded-lg">Sci-Fi</a>
               </li>
             </div>
           </ul>
         </div>
       </div>
 
-      <div className="navbar-center">
-        <a className="btn btn-ghost text-xl text-white">Movies</a>
-      </div>
+      <Link to="/">
+        <div className="navbar-center">
+          <a className="btn btn-ghost text-xl ">Movies</a>
+        </div>
+      </Link>
 
       <div className="navbar-end">
         <label className="flex cursor-pointer gap-2">
@@ -203,7 +205,7 @@ const Navbar = () => {
         {/* Search Popout */}
         {isSearchOpen && (
           <div
-            className="absolute bg-gray-800 text-white rounded-lg shadow-lg z-50 p-4 w-80"
+            className="absolute bg-base-200  rounded-lg shadow-lg z-50 p-4 w-80"
             style={{ top: "3.5rem", right: "0" }} // Adjusts the popout below the magnifying glass
           >
             <form>
@@ -212,7 +214,7 @@ const Navbar = () => {
                 value={query}
                 onChange={handleSearchChange}
                 placeholder="Search movies..."
-                className="input input-bordered w-full bg-gray-600 text-white" // Text color set to white
+                className="input input-bordered w-full bg-base-300 " // Text color set to white
               />
             </form>
 
@@ -221,9 +223,9 @@ const Navbar = () => {
 
             {/* Search Results Dropdown */}
             {searchResults.length > 0 && (
-              <ul className="dropdown-content mt-2 bg-gray-700 rounded-lg p-2 max-h-60 overflow-auto shadow-lg">
+              <ul className="dropdown-content mt-2  rounded-lg max-h-60 overflow-auto ">
                 {searchResults.map((movie) => (
-                  <li key={movie.id} className="p-2 hover:bg-gray-600">
+                  <li key={movie.id} className="p-2 hover:bg-base-300">
                     <Link to={`/detail/movie/${movie.id}`}>
                       <p>
                         {movie.title} <span>{movie.release_date}</span>

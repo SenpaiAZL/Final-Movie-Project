@@ -31,6 +31,7 @@ function App() {
             <Route path="/category/:category" element={<Category />} />
             <Route path="/lists" element={<Lists />} />
             <Route path="/lists/:id" element={<ListItemsView />} />
+            <Route path="/*" element={<Homepage />} />
           </Routes>
         </Provider>
       </BrowserRouter>
