@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FetcherSearch from "../Fetcher/SearchMovies"; // Import the search component
 
@@ -7,6 +7,27 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+
+  // update state on toggle
+  const handleToggle = (e) => {
+    if (e.target.checked) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
+  // set theme state in localstorage on mount & also update localstorage on state change
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    // add custom data-theme attribute to html tag required to update theme using DaisyUI
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme]);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -58,12 +79,12 @@ const Navbar = () => {
               <Link to="/category/Action">
                 <a>Category</a>
               </Link>
-              </li>
+            </li>
             <li>
-                <Link to="/Lists">
-                  <a>Lists</a>
-                </Link>
-              </li>
+              <Link to="/Lists">
+                <a>Lists</a>
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -125,6 +146,42 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end">
+        <label className="flex cursor-pointer gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+          </svg>
+          <input
+            type="checkbox"
+            value="synthwave"
+            className="toggle theme-controller"
+            onChange={handleToggle}
+            checked={theme === "light" ? false : true}
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </label>
         {/* Search and Notifications Icons */}
         <button className="btn btn-ghost btn-circle" onClick={toggleSearch}>
           <svg
