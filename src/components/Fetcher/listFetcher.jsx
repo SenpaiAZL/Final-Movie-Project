@@ -35,7 +35,7 @@ const listFetcher = ({}) => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch, apiKey, apiToken]);
+  }, [dispatch, apiKey, apiToken, accId]);
 
   useEffect(() => {
     listFetcher();

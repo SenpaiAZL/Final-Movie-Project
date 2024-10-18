@@ -17,7 +17,7 @@ const Homepage = () => {
             <h1 className="text-5xl font-bold">Welcome to Movies Hub</h1>
             <p className="py-6">
               Discover a collection of movies curated just for you. From latest
-              releases to all-time favorites.
+              releases to all-time favorites. wonderhoy :)
             </p>
             <button className="btn btn-primary">Browse Movies</button>
           </div>
