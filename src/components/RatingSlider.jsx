@@ -1,17 +1,21 @@
 import React from "react";
 
-const RatingSlider = ({ value }) => {
+const RatingSlider = ({ onChange }) => {
+  const handleSliderChange = (e) => {
+    const newValue = Number(e.target.value);
+    console.log("Slider value changed:", newValue); // Log the value here
+    onChange(newValue); // Call the parent function to update the value
+  };
   return (
-    <>
+    <div className="my-3">
       <input
         type="range"
         min={0}
         max="10"
-        value={value !== null ? value : 0} // Handle null case
+        onChange={handleSliderChange}
         className="range"
-        step="1"
       />
-      <div className="flex w-full justify-between px-2 text-xs">
+      <div className="flex w-full justify-between text-xs">
         <span>|</span>
         <span>|</span>
         <span>|</span>
@@ -23,7 +27,7 @@ const RatingSlider = ({ value }) => {
         <span>|</span>
         <span>|</span>
       </div>
-    </>
+    </div>
   );
 };
 
