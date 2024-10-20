@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import FetcherSearch from "../Fetcher/SearchMovies"; // Import the search component
 
@@ -7,6 +9,7 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -79,12 +82,12 @@ const Navbar = () => {
               <Link to="/category/Action">
                 <a>Category</a>
               </Link>
-            </li>
+              </li>
             <li>
-              <Link to="/Lists">
-                <a>Lists</a>
-              </Link>
-            </li>
+                <Link to="/Lists">
+                  <a>Lists</a>
+                </Link>
+              </li>
           </ul>
         </div>
 
@@ -205,7 +208,9 @@ const Navbar = () => {
         {/* Search Popout */}
         {isSearchOpen && (
           <div
+
             className="absolute bg-base-200  rounded-lg shadow-lg z-50 p-4 w-80"
+
             style={{ top: "3.5rem", right: "0" }} // Adjusts the popout below the magnifying glass
           >
             <form>
@@ -214,7 +219,9 @@ const Navbar = () => {
                 value={query}
                 onChange={handleSearchChange}
                 placeholder="Search movies..."
+
                 className="input input-bordered w-full bg-base-300 " // Text color set to white
+
               />
             </form>
 
@@ -223,9 +230,11 @@ const Navbar = () => {
 
             {/* Search Results Dropdown */}
             {searchResults.length > 0 && (
+
               <ul className="dropdown-content mt-2  rounded-lg max-h-60 overflow-auto ">
                 {searchResults.map((movie) => (
                   <li key={movie.id} className="p-2 hover:bg-base-300">
+
                     <Link to={`/detail/movie/${movie.id}`}>
                       <p>
                         {movie.title} <span>{movie.release_date}</span>
