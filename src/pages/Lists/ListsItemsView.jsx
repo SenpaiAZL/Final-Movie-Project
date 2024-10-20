@@ -9,7 +9,7 @@ const ListItemsView = () => {
   const { id } = useParams();
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
+    <div className="bg-base-100 min-h-screen p-8">
       <ListItemsFetcher id={id} />
       <h1 className="text-4xl font-bold mb-6 text-center">List Details</h1>
       <p>Name : {list.name}</p>

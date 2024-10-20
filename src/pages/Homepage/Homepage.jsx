@@ -9,9 +9,9 @@ const Homepage = () => {
   const trend = useSelector((state) => state.trend.trend);
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-base-100  min-h-screen">
       {/* Hero Section */}
-      <div className="hero h-96 bg-gray-800">
+      <div className="hero h-96 bg-base-300">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Welcome to Movies Hub</h1>
@@ -55,7 +55,7 @@ const Homepage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-center py-4 mt-10">
+      <footer className="bg-base-300 text-center py-4 mt-10">
         <p>© 2024 Movies Hub. All Rights Reserved.</p>
       </footer>
     </div>

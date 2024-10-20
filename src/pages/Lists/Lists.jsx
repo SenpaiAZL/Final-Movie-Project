@@ -6,7 +6,7 @@ import CardList from "../../components/Card/CardList";
 const Lists = () => {
   const list = useSelector((state) => state.list.list);
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
+    <div className="bg-base-100 min-h-screen p-8">
       <ListFetcher />
       <h1 className="text-4xl font-bold mb-6 text-center">Your Lists</h1>
       <p>Total list: {list.total_results}</p>

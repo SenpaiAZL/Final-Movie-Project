@@ -15,7 +15,7 @@ const RatingSlider = ({ onChange }) => {
         onChange={handleSliderChange}
         className="range"
       />
-      <div className="flex w-full justify-between text-xs">
+      <div className="flex w-full justify-between text-xs px-3">
         <span>|</span>
         <span>|</span>
         <span>|</span>
