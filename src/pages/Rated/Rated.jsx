@@ -34,7 +34,7 @@ const Rated = () => {
           className={`tab px-6 ${activeTab === "movies" ? "tab-active" : ""}`}
           onClick={() => handleTabClick("movies")}
         />
-        <div role="tabpanel" className="tab-content w-full p-10">
+        <div role="tabpanel" className="tab-content w-full p-10 justify-center">
           {list.item_count === 0 ? (
             <div className="flex w-full h-full justify-center align-middle text-slate-600 italic">
               There's no item to display.

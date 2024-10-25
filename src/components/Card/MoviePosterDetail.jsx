@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { setList } from "../../Store/Action/movieAction";
 import RatingSlider from "../../components/RatingSlider";
 import { useDispatch } from "react-redux";
+import { useToast } from "../../Store/ToastContext";
 
 const DetailMovie = ({
   id,
@@ -19,9 +20,8 @@ const DetailMovie = ({
   onRatingSubmit,
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
-
-  const [tempRatingValue, setTempRatingValue] = useState(myRating || 0);
   const dispatch = useDispatch();
+  const [tempRatingValue, setTempRatingValue] = useState(myRating || 0);
 
   const toggleTooltip = (e) => {
     e.preventDefault();
@@ -103,9 +103,7 @@ const DetailMovie = ({
 
   return (
     <Link to={`/detail/${type}/${id}`} onClick={handleLinkClick}>
-      <div
-        className={`card card-compact card-side  shadow-xl text-left w-full bg-base-100"`}
-      >
+      <div className="card card-compact card-side shadow-xl text-left w-full bg-base-100 p-0">
         {posterUrl ? (
           <figure className={`max-w-28`}>
             <img
@@ -115,11 +113,11 @@ const DetailMovie = ({
             />
           </figure>
         ) : null}
-        <div className="card-body">
-          <div className="card-head flex justify-around">
+        <div className="card-body flex-col flex justify-between ">
+          <div className="card-head flex justify-between">
             <>
               <h2 className="card-title">{title}</h2>
-              <span className="font-black ml-2">
+              <span className="font-black ml-2 rating align-baseline items-center min-w-fit">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="12"
@@ -130,7 +128,7 @@ const DetailMovie = ({
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="align-baseline"
+                  className="align-baseline mr-2"
                 >
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
@@ -149,7 +147,7 @@ const DetailMovie = ({
             )}
           </span>
 
-          <div className="flex justify-around">
+          <div className="flex justify-between">
             <div className="text-left ">
               My rating : <span className="font-bold text-lg">{myRating}</span>
             </div>
@@ -161,14 +159,14 @@ const DetailMovie = ({
                 {showTooltip ? "Cancel" : "Change rating"}
               </button>
               {showTooltip && (
-                <div className="absolute top-full mt-2 p-4 min-w-96 bg-gray-800 text-white rounded-lg shadow-lg">
+                <div className="absolute top-full mt-2 p-4 w-64 bg-base-300 rounded-lg shadow-lg z-50">
                   <div>
-                    <h4>Change rating</h4>
+                    <h4 className="mb-2">Change rating</h4>
                     <RatingSlider
                       onChange={(newValue) => setTempRatingValue(newValue)}
                     />
                     <button
-                      className="btn btn-success  h-8 min-h-8"
+                      className="btn btn-success  h-8 min-h-8 mt-3"
                       onClick={submitRating}
                     >
                       Submit Rating
