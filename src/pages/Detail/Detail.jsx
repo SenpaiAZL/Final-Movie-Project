@@ -110,7 +110,9 @@ const Detail = () => {
   return (
     <div className="">
       <DetailMovieFetcher id={id} type={mediaType} />
-      <div className="container mx-auto p-10 bg-gray-900 text-white rounded-lg shadow-lg">
+
+      <div className="container mx-auto p-10 bg-base-100  rounded-lg shadow-lg">
+
         {/* Movie Title, Poster and Rating */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">{detail.title || detail.name}</h1>
@@ -191,10 +193,7 @@ const Detail = () => {
             <h3 className="text-lg font-semibold">Genre</h3>
             {detail.genres ? (
               detail.genres.map((genre) => (
-                <div
-                  key={genre.id}
-                  className="bg-gray-800 p-1 rounded-lg shadow-md"
-                >
+                <div key={genre.id} className=" p-1 rounded-lg shadow-md">
                   <h3 className="text-lg font-semibold">{genre.name}</h3>
                 </div>
               ))

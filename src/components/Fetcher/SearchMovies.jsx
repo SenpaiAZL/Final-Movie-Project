@@ -36,7 +36,7 @@ const FetcherSearch = ({ query, onResults }) => {
 
   useEffect(() => {
     fetchSearch();
-  }, [fetchSearch]);
+  }, [query]);
 
   return loading ? <div className="spinner"></div> : null; // Loading indicator
 };

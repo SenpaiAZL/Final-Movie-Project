@@ -9,15 +9,21 @@ const Homepage = () => {
   const trend = useSelector((state) => state.trend.trend);
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-base-100  min-h-screen">
       {/* Hero Section */}
-      <div className="hero h-96 bg-gray-800">
+      <div
+        className="hero h-96 bg-base-300 object-cover"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/w1280/dIWwZW7dJJtqC6CgWzYkNVKIUm8.jpg)`,
+        }}
+      >
+        <div className="w-full h-96 object-cover bg-slate-800 opacity-60"></div>
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Welcome to Movies Hub</h1>
-            <p className="py-6">
+            <h1 className="text-5xl font-bold text-white">Welcome to Kourindou Movie</h1>
+            <p className="py-6 text-white">
               Discover a collection of movies curated just for you. From latest
-              releases to all-time favorites. wonderhoy :)
+              releases to all-time favorites.
             </p>
             <button className="btn btn-primary">Browse Movies</button>
           </div>
@@ -42,20 +48,9 @@ const Homepage = () => {
           ))}
         </div>
       </div>
-      {/* Movies What's popular section */}
-      <div className="py-10">
-        <h2 className="text-3xl text-center font-semibold mb-8">
-          What's popular
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mx-auto max-w-6xl px-4">
-          <Card />
-          <Card />
-          <Card />
-        </div>
-      </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-center py-4 mt-10">
+      <footer className="bg-base-300 text-center py-4 mt-10">
         <p>© 2024 Movies Hub. All Rights Reserved.</p>
       </footer>
     </div>

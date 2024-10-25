@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Homepage from "./pages/Homepage/Homepage";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Favorites from "./pages/Favorites/Favorites";
 import MovieFetcher from "./components/Fetcher/MovieFetcher";
 import { useState } from "react";
 import Category from "./pages/Category/Category";
@@ -26,11 +25,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/detail/:mediaType/:id" element={<Detail />} />
-            <Route path="Favorites" element={<Favorites />} />
             <Route path="/search" element={<Search />} />
             <Route path="/category/:category" element={<Category />} />
             <Route path="/lists" element={<Lists />} />
             <Route path="/lists/:id" element={<ListItemsView />} />
+            <Route path="/*" element={<Homepage />} />
           </Routes>
         </Provider>
       </BrowserRouter>

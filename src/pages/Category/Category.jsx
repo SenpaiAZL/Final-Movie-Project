@@ -3,17 +3,16 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 const Category = () => {
-    const { category } = useParams();
+  const { category } = useParams();
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-base-100 ">
       {/* Page Header */}
       <header className="py-6 text-center">
         <h1 className="text-3xl font-bold">{category} Movies</h1>
         <p className="text-gray-400 mt-2">
           Explore the best {category.toLowerCase()} movies
         </p>
-          </header>
-          
+      </header>
 
       {/* Category Movies Grid */}
       <main className="container mx-auto px-4">
@@ -22,7 +21,7 @@ const Category = () => {
           {Array.from({ length: 8 }).map((_, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-700 transition duration-300"
+              className="card rounded-lg shadow-lg hover:shadow-xl transition duration-300 p-0"
             >
               <img
                 src={`https://placehold.co/300x400?text=${category}+Movie`}

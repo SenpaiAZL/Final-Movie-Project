@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const CardList = ({ imgUrl, title, id, itemCount, desc }) => {
   return (
-    <div className="card bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden">
+    <div className="card bg-base-100 shadow-lg rounded-lg overflow-hidden">
       <img
         src={`https://image.tmdb.org/t/p/w500${imgUrl}`}
         alt={title}
