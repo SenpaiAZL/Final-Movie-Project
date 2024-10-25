@@ -29,3 +29,10 @@ export const setState = (itemState) => {
     payload: itemState,
   };
 };
+
+export const deleteRating = (id, type) => {
+  return {
+    type: "DELETE_RATING_SUCCESS",
+    payload: { id, type },
+  };
+};

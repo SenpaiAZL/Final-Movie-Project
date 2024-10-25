@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
 const RatingSlider = ({ onChange }) => {
+  const [value, setValue] = useState(0); // Initialize state
+
   const handleSliderChange = (e) => {
     const newValue = Number(e.target.value);
-    console.log("Slider value changed:", newValue); // Log the value here
-    onChange(newValue); // Call the parent function to update the value
+    setValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
   };
+
   return (
-    <div className="my-3">
-      <input
-        type="range"
-        min={0}
-        max="10"
-        onChange={handleSliderChange}
-        className="range"
-      />
-      <div className="flex w-full justify-between text-xs px-3">
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
+    <div className="flex align-middle">
+      <div className="flex-grow ">
+        <input
+          type="range"
+          min={0}
+          max={10}
+          value={value}
+          className="range align-middle"
+          onChange={handleSliderChange}
+        />
       </div>
+      <h2 className="text-lg font-bold mx-3">{value}</h2>
     </div>
   );
 };

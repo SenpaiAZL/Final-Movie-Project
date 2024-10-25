@@ -14,6 +14,7 @@ import store from "./Store/store";
 import Search from "./pages/Search";
 import Lists from "./pages/Lists/Lists";
 import ListItemsView from "./pages/Lists/ListsItemsView";
+import Rated from "./pages/Rated/Rated";
 
 function App() {
   const [data, setData] = useState();
@@ -31,6 +32,7 @@ function App() {
             <Route path="/category/:category" element={<Category />} />
             <Route path="/lists" element={<Lists />} />
             <Route path="/lists/:id" element={<ListItemsView />} />
+            <Route path="/rated" element={<Rated />} />
             <Route path="/*" element={<Homepage />} />
           </Routes>
         </Provider>
