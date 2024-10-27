@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { setList } from "../../Store/Action/movieAction";
 import RatingSlider from "../../components/RatingSlider";
+
 import { useDispatch } from "react-redux";
-import { useToast } from "../../Store/ToastContext";
 
 const DetailMovie = ({
   id,

@@ -1,60 +1,33 @@
 /* eslint-disable no-unused-vars */
 
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
 import FetcherSearch from "../Fetcher/SearchMovies"; // Import the search component
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
-  // update state on toggle
-  const handleToggle = (e) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-
-  // set theme state in localstorage on mount & also update localstorage on state change
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    // add custom data-theme attribute to html tag required to update theme using DaisyUI
-    document.querySelector("html").setAttribute("data-theme", localTheme);
+    document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
 
-
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
-
-  // update state on toggle
   const handleToggle = (e) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+    setTheme(e.target.checked ? "dark" : "light");
   };
-
-  // set theme state in localstorage on mount & also update localstorage on state change
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    // add custom data-theme attribute to html tag required to update theme using DaisyUI
-    document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme]);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
-    // console.log("test")
+  };
+
+  const toggleNotification = () => {
+    setIsNotificationOpen(!isNotificationOpen);
   };
 
   const handleSearchChange = (e) => {
@@ -85,77 +58,19 @@ const Navbar = () => {
               />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-200  rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
+          <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
             <li>
-              <Link to="/">
-                <a>Homepage</a>
-              </Link>
+              <Link to="/">Homepage</Link>
             </li>
             <li>
-              <Link to="/category/Action">
-                <a>Category</a>
-              </Link>
+              <Link to="/category/Action">Category</Link>
             </li>
             <li>
-              <Link to="/Lists">
-                <a>Lists</a>
-              </Link>
+              <Link to="/Lists">Lists</Link>
             </li>
-          </ul>
-        </div>
-
-        <div className="dropdown dropdown-end">
-          {/* Browse Dropdown with Large Popup */}
-          <label tabIndex={0} className="btn btn-ghost normal-case text-lg">
-            Browse
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="ml-2 h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu dropdown-content bg-base-200  rounded-box z-[1] mt-3 p-6 shadow-lg w-[300px] h-auto"
-            style={{
-              position: "absolute",
-              top: "100%", // pop-out below the button
-              left: 0,
-              transform: "translateX(-20%)", // center the dropdown relative to the button
-            }}
-          >
-            <div className="grid grid-cols-2 gap-4 text-lg">
-              <li>
-                <a className=" p-2 rounded-lg">Action</a>
-              </li>
-              <li>
-                <a className=" p-2 rounded-lg">Adventure</a>
-              </li>
-              <li>
-                <a className=" p-2 rounded-lg">Comedy</a>
-              </li>
-              <li>
-                <a className=" p-2 rounded-lg">Drama</a>
-              </li>
-              <li>
-                <a className=" p-2 rounded-lg">Horror</a>
-              </li>
-              <li>
-                <a className=" p-2 rounded-lg">Sci-Fi</a>
-              </li>
-            </div>
+            <li>
+              <Link to="/Rated">Rated</Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -187,7 +102,7 @@ const Navbar = () => {
             value="synthwave"
             className="toggle theme-controller"
             onChange={handleToggle}
-            checked={theme === "light" ? false : true}
+            checked={theme === "dark"}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -203,11 +118,8 @@ const Navbar = () => {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </label>
-        {/* Search and Notifications Icons */}
-        <button
-          className="btn btn-ghost btn-circle"
-          onClick={() => toggleSearch()}
-        >
+
+        <button className="btn btn-ghost btn-circle" onClick={toggleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
@@ -224,45 +136,10 @@ const Navbar = () => {
           </svg>
         </button>
 
-        {/* Search Popout */}
-        {isSearchOpen && (
-          <div
-            className="absolute bg-base-200  rounded-lg shadow-lg z-50 p-4 w-80"
-            style={{ top: "3.5rem", right: "0" }} // Adjusts the popout below the magnifying glass
-          >
-            <form>
-              <input
-                type="text"
-                value={query}
-                onChange={handleSearchChange}
-                placeholder="Search movies..."
-
-                className="input input-bordered w-full bg-base-300 " // Text color set to white
-
-              />
-            </form>
-
-            {/* Fetch search results */}
-            <FetcherSearch query={query} onResults={handleSearchResults} />
-
-            {/* Search Results Dropdown */}
-            {searchResults.length > 0 && (
-              <ul className="dropdown-content mt-2  rounded-lg max-h-60 overflow-auto ">
-                {searchResults.map((movie) => (
-                  <li key={movie.id} className="p-2 hover:bg-base-300">
-                    <Link to={`/detail/movie/${movie.id}`}>
-                      <p>
-                        {movie.title} <span>{movie.release_date}</span>
-                      </p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-
-        <button className="btn btn-ghost btn-circle">
+        <button
+          className="btn btn-ghost btn-circle"
+          onClick={toggleNotification}
+        >
           <div className="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -281,6 +158,54 @@ const Navbar = () => {
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
         </button>
+
+        {isSearchOpen && (
+          <div
+            className="absolute bg-base-200 rounded-lg shadow-lg z-50 p-4 w-80"
+            style={{ top: "3.5rem", right: "0" }}
+          >
+            <form>
+              <input
+                type="text"
+                value={query}
+                onChange={handleSearchChange}
+                placeholder="Search movies..."
+                className="input input-bordered w-full bg-base-300"
+              />
+            </form>
+            <FetcherSearch query={query} onResults={handleSearchResults} />
+            {searchResults.length > 0 && (
+              <ul className="dropdown-content mt-2 rounded-lg max-h-60 overflow-auto">
+                {searchResults.map((movie) => (
+                  <li key={movie.id} className="p-2 hover:bg-base-300">
+                    <Link to={`/detail/movie/${movie.id}`}>
+                      <p>
+                        {movie.title} <span>{movie.release_date}</span>
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+
+        {isNotificationOpen && (
+          <div className="fixed right-0 top-0 w-80 h-full bg-base-200 z-50 shadow-lg p-4 overflow-y-auto">
+            <button
+              className="btn btn-sm btn-ghost"
+              onClick={toggleNotification}
+            >
+              Close
+            </button>
+            <h2 className="text-lg font-semibold mb-4">Notifications</h2>
+            <ul className="space-y-2">
+              <li className="p-2 bg-base-300 rounded">New Movies is out, check it out!</li>
+              <li className="p-2 bg-base-300 rounded">Offering new sits on the theater for 50$! grab it now</li>
+              <li className="p-2 bg-base-300 rounded">Touhou gets an adaption?!</li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
